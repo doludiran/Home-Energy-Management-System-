@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+ <meta charset="UTF-8">
+  <title>Login-page </title>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" type="text/css"  href="css/my-style-sheet.css" />
+  
+  <style>
+   .err_msg{ color:red;}
+     </style>
+  </head>
+  <body>
+    
+     <div class="header">
+         <h1>Utility-Portal</h1>
+     </div>
+    
+    <nav>
+       <ul>
+        	<li><a href= "index.html">Home</a></li>
+          <li><a href= "Loginpage.html">Login </a></li>
+         <li><a href= "TOU.html">Time Of Use </a></li>
+            <li><a href= "Realtime.html">Realtime </a></li>
+        
+          </ul>
+        </nav>
+    
+       <div class="container">
+         <article>
+           <h1>Login</h1>
+           <form id="SignUp" method="post">
+               <table>
+                 <tr><td></td><td><label id="uname_msg" class="err_msg"></label></td></tr> 
+                 <tr><td>Username: </td><td> <input type="text" name="uname" size="30" /></td></tr>
+                 
+                     <tr><td></td><td><label id="pswd_msg" class="err_msg"></label></td></tr> 
+                     <tr><td>Password: </td><td> <input type="password" name="pswd" size="30" /></td></tr>      
+                 </table>
+                 <p><input type="submit"  value="Login" />
+                  <input type="reset"  value="Reset" /></p>
+             </form>  
+            <p><a href = "index.html">Back to Homepage</a></p>
+            </article>
+        </div>
+   
+  <footer class= "footer"> 
+   <script type="text/javascript" src="js/validation.js"></script>
+   <script type = "text/javascript"  src = "js/SignUp-r.js" ></script>
+    <p> 2018 CS215 website underconstruction</p>
+  </footer>
+
+ 
+    
+    
+ </body>
+</html>
