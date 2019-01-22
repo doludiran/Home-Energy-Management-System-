@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+    <html lang ="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" type="text/css"  href="css/my-style-sheet.css" />
+        <title>utility-portal </title>
+        <style>
+       .err_msg{
+         color:red;
+          }
+     </style>
+    </head>
+    <body>
+    
+     <div class="header">
+         <h1>Utility-Portal</h1>
+     </div>
+    
+    <nav>
+       <ul>
+        	<li><a href= "index.html">Home</a></li>
+          <li><a href= "Loginpage.html">Login </a></li>
+         <li><a href= "TOU.html">Time Of Use </a></li>
+            <li><a href= "Realtime.html">Realtime </a></li>
+        
+          </ul>
+        </nav> 
+        <form id="TOU"  method="post" enctype="multipart/form-data">
+                <table>
+                  <tr><td></td><td><label id="tou_msg" class="err_msg"></label></td></tr> 
+                  <tr><td>TOU Effective From: </td><td> <input type="text" placeholder="YYYY-MM-DD"name="from" size="30" /></td></tr>
+                  <tr><td>To: </td><td> <input type="text" placeholder="YYYY-MM-DD"name="to" size="30" /></td></tr>
+                  <tr><td>Time of Day From :</td><td> <input type="time"placeholder="HH:MM:SS" name="timeofday" size="30" /></td></tr>
+                  <tr><td>To :</td><td> <input type="time"placeholder="HH:MM:SS" name="timeofday" size="30" /></td></tr>
+                  <tr><td>TOU Period:</td> <td>
+                   <select id="touperiod">
+                   <option value="">Select Period</option>
+                   <option value="ON-Peak">ON-Peak</option>
+                   <option value="OFF-Peak">OFF-Peak</option>
+                   <option value="MID-Peak">MID-Peak</option>
+                   </select></td></tr>
+                   <tr><td>TOU Price:</td><td> <input type="number"placeholder="$"name="touprice"size="30"</td></tr>
+                   </table>
+                <p><input type="submit" value="submit" />
+         
+            </form>
+        
+     <script type="text/javascript" src="js/validation.js"></script>
+    <script> document.getElementById("TOU").addEventListener("submit", TOUForm, false)</script>
+       </body>
+</html>
