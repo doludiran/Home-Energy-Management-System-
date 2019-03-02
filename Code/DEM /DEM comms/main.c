@@ -25,7 +25,7 @@ int main()
 //		xbee_send(0x00DC, 0x4567);
 //		for (i=0; i < 500000; i++)
 //		{}
-		if(xbee_recieve() == 0x4567)
+		if(xbee_recieve() == 0x5890)
 		{ GPIOC->ODR ^= GPIO_ODR_ODR8;}
 			
 	}
