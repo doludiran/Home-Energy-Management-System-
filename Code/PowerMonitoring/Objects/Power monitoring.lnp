@@ -1,0 +1,13 @@
+--cpu Cortex-M3
+".\objects\clocks.o"
+".\objects\adc_init.o"
+".\objects\power_monitoring.o"
+".\objects\main.o"
+".\objects\xbee.o"
+".\objects\serial.o"
+".\objects\gpio_stm32f10x.o"
+".\objects\startup_stm32f10x_md_vl.o"
+".\objects\system_stm32f10x.o"
+--ro-base 0x08000000 --entry 0x08000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\Power monitoring.map" -o ".\Objects\Power monitoring.axf"
