@@ -1,0 +1,396 @@
+<CCUGUI>:
+    id: manager
+<HomeScreen>:
+    id: 'Home'
+    BoxLayout:
+        orientation: 'horizontal'
+        canvas:
+            Color:
+                rgba: 1, 1, 1, 1 
+            Rectangle:
+                size: root.width, root.height
+                pos: 0, 0
+        GridLayout:
+            cols: 2
+            BoxLayout:
+                id: touplot
+                orientation: 'vertical'
+                size_hint: .5,.5
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint: .4,.4
+                
+                AnchorLayout:
+                    anchor_x: 'center'
+                    anchor_y: 'bottom'
+                    Button:
+                        id: 'HomeButton'
+                        size_hint: .15, .2
+                        on_press: root.manager.current= 'Menu'
+            
+                        Image:
+                            source: 'icon.png'
+                            center_y: self.parent.center_y 
+                            center_x: self.parent.center_x
+                            size: 120, 120
+                            allow_strech: True
+                
+                BoxLayout:
+                    orientation: 'vertical'
+                    AnchorLayout:
+                        anchor_x: 'center'
+                        Label:
+                            text: root.time
+                            color: 0,0,0,1
+                            font_size:25
+                            size_hint: .05,.05
+                       
+                    AnchorLayout:
+                        anchor_y: 'top'
+                        Label:
+                            text: root.date
+                            color: 0,0,0,1
+                            font_size:40
+                            size_hint: .05,.05
+<MenuScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                size: root.width, root.height
+                pos: 0, 0
+        Button:
+            text: 'Back'
+            on_press: root.manager.current= 'Home'
+            size_hint: 0.2,0.15
+            
+        AnchorLayout:
+            orientation: 'horizontal'
+            anchor_x: 'center'
+            GridLayout:
+                cols: 2
+                size_hint: .23, .42
+                Button:
+                    id: 'Therm'
+                    on_press: root.manager.current= 'Thermostat'
+                    size_hint: .15, .15
+                    Image:
+                        source: 'thermostat.png'
+                        center_y: self.parent.center_y 
+                        center_x: self.parent.center_x
+                        size: 150, 90
+                        allow_strech: True
+                Button:
+                    id: 'EV'
+                    on_press: root.manager.current= 'EV'
+                    size_hint: .15, .15
+                    Image:
+                        source: 'car.png'
+                        center_y: self.parent.center_y 
+                        center_x: self.parent.center_x
+                        size: 150, 90
+                        allow_strech: True
+                Button:
+                    id: 'Water'
+                    size_hint: .15, .15
+                    Image:
+                        source: 'water.png'
+                        center_y: self.parent.center_y 
+                        center_x: self.parent.center_x
+                        size: 150,90
+                        allow_strech: True
+                Button:
+                    id: 'x10'
+                    size_hint: .15, .15
+                    Image:
+                        source: 'x10.png'
+                        center_y: self.parent.center_y 
+                        center_x: self.parent.center_x
+                        size: 150, 90
+                        allow_strech: True
+<EVScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                size: root.width, root.height
+                pos: 0, 0
+        
+        GridLayout:
+            cols: 4
+            size_hint: 1, 0.2
+            Button:
+                text: 'Back'
+                size_hint: 0.2, 0.2
+                on_press: root.manager.current= 'Menu'
+            Label:
+                text: 'Total Usage:'
+                color: 0,0,0,1
+            Label:
+                text: 'Total Cost:'
+                color: 0,0,0,1
+        
+        TabbedPanel:
+            do_default_tab: False
+            background_color: (1,1,1,0)
+            tab_pos: 'top_right'
+            TabbedPanelItem:
+                text: 'Daily'
+                GridLayout:
+                    cols: 2
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint: 0.2,0.2
+                        canvas:
+                            Color:
+                                rgba: 0.29,0.54,0.29,1
+                            Ellipse:
+                                size: 120, 120
+                                pos: 13, 200
+                            
+                    BoxLayout:
+                        id: consdata
+                        orientation: 'vertical'
+            
+            TabbedPanelItem:
+                text: 'Monthly'
+                BoxLayout:
+                    id: monthly
+                    orientation: 'vertical'
+            
+        Label:
+            id: charge
+            text: 'not charging'
+            color: 0,0,0,1
+            size_hint: 1, 0.1
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, 0.2
+            Button:
+                id: overide
+                text: 'overide'
+                on_press: root.dr_override = True         
+            Button:
+                id: 'schedule'
+                text: 'Schedule'
+                on_press: root.manager.current = 'sched'
+        
+
+<ThermostatScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                size: root.width, root.height
+                pos: 0, 0
+        GridLayout:
+            id: thermostat
+            cols: 3
+            colour: (2, 0, 0, 1)
+            btn_colour: (2.5, 0, 0, 1)
+            BoxLayout:
+                orientation: 'vertical'
+                AnchorLayout:
+                    anchor_x: 'right'
+                    anchor_y: 'center'
+                    size_hint: 0.1, 0.1
+                    pos_hint: {'x': 0.95, 'y': 0.95}
+                    Label:
+                        text: "SETPOINT:"
+                        color: self.parent.parent.parent.colour
+                        font_size: 30
+                        
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    id: temperature
+                    text: "Thermostat"
+                    color: self.parent.parent.colour
+                    font_size: 50
+                Button:
+                    id: increase
+                    background_color: 0, 0, 0, 0
+                    canvas:
+                        Color: 
+                            rgba: self.parent.parent.colour
+                        Triangle:
+                            points: [self.center_x - 70, self.center_y - 20,self.center_x, self.center_y + 80,self.center_x + 70, self.center_y - 20]
+                        
+                Label:
+                    text: "25"
+                    color: self.parent.parent.colour
+                    font_size: 300
+                Button:
+                    id: 'decrease'
+                    background_color: 0, 0, 0, 0
+                    size: 10, 10
+                    canvas:
+                        Color:
+                            rgba: self.parent.parent.colour
+                        Triangle:
+                            points: [self.center_x - 70, self.center_y + 20,self.center_x, self.center_y - 80,self.center_x + 70, self.center_y + 20]
+                        
+                Label:
+                    id: mode
+                    text: "Heating"
+                    color: self.parent.parent.colour
+                    font_size: 30
+                        
+            BoxLayout: 
+                orientation: 'horizontal'
+                AnchorLayout:
+                    anchor_x: 'left'
+                    anchor_y: 'bottom'
+                    size_hint: 0.1, 0.1
+                    pos_hint: {'x': 0, 'y': 0.9}
+                    Label:
+                        text: "Temperature:"
+                        color: self.parent.parent.parent.colour
+                        font_size: 30
+                AnchorLayout:
+                    anchor_x: 'left'
+                    anchor_y: 'top'
+                    size_hint: 0.1, 0.1
+                    pos_hint: {'x': 0, 'y': 0.9}
+                    Label:
+                        text: "25"
+                        color: self.parent.parent.parent.colour
+                        font_size: 30
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1,0.1
+            Button:
+                id: heat
+                text: 'Heat'
+                font_size: 40
+                background_color: root.ids.thermostat.btn_colour
+                on_press: root.heat_mode()
+            Button:
+                id: cool
+                text: 'Cool'
+                font_size: 40
+                size: 10, 10
+                background_color: root.ids.thermostat.btn_colour
+                on_press: root.cool_mode()
+            Button:
+                id: eco
+                text: 'Schedule'
+                font_size: 40
+                size: 10, 10
+                background_color: root.ids.thermostat.btn_colour
+                
+            Button:
+                id: usage
+                text: 'History'
+                font_size: 40
+                size: 10, 10
+                background_color: root.ids.thermostat.btn_colour
+<schedule>:
+    id: schedule
+    active_text: "starttime"
+    BoxLayout:
+        orientation: 'vertical'
+        canvas:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                size: root.width, root.height
+                pos: 0, 0
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint:  1, 0.2
+            Button:
+                id: back
+                text: 'Back'
+                on_press: root.manager.current= 'EV'
+            Button:
+                id: DeleteSchedule
+                text: 'Delete Current Schedule'
+                on_press: root.deleteSchedule()
+                
+        GridLayout:
+            cols: 2
+            BoxLayout:
+                orientation: 'vertical'
+                BoxLayout:
+                    orientation: 'horizontal'
+                    Button:
+                        text: 'Start time (HH:MM):'
+                        on_press: root.active_text = "starttime"
+                    Label:
+                        id: starttime
+                        text:''
+                        color: 0,0,0,1
+                BoxLayout:
+                    orientation: 'horizontal'
+                    Button:
+                        text: 'Deadline (HH:MM):'
+                        on_press: root.active_text = "deadline"
+                    Label:
+                        id: deadline
+                        text: ''
+                        color: 0,0,0,1
+            BoxLayout:
+                orientation: 'vertical'
+                AnchorLayout:
+                    anchor_x: 'center'
+                    GridLayout:
+                        cols: 3
+                        size_hint:  0.7, 0.8
+                        Button:
+                            text: '1'
+                            on_press: root.keypadInput(self)
+                        Button:
+                            text: '2'
+                            on_press: root.keypadInput(self)
+                        Button:
+                            text: '3'
+                            on_press: root.keypadInput(self)
+                        Button:
+                            text: '4'
+                            on_press: root.keypadInput(self)
+                        Button:
+                            text: '5'
+                            on_press: root.keypadInput(self)
+                        Button:
+                            text: '6'
+                            on_press: root.keypadInput(self)
+                        Button:
+                            text: '7'
+                            on_press: root.keypadInput(self)
+                        Button:
+                            text: '8'
+                            on_press: root.keypadInput(self)
+                        Button:
+                            text: '9'
+                            on_press: root.keypadInput(self)
+                        Button:
+                            text: 'Delete'
+                            on_press:  root.keypadInput(self)
+                        Button:
+                            text: '0'
+                            on_press: root.keypadInput(self)
+        Label:
+            id: notification
+            text: ''
+            font_size: 30
+            color: 0,0,0,1
+            size_hint: 1, 0.05
+            
+        AnchorLayout:
+            anchor_x: 'center'
+            size_hint:  1, 0.2 
+            Button:
+                id: 'Done'
+                text: 'Done'
+                on_press: root.submitSchedule()
+                size_hint:  0.2, 0.9
+
+                    
+                
