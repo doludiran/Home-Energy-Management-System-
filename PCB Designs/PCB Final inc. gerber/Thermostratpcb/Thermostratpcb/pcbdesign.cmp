@@ -1,0 +1,83 @@
+Cmp-Mod V01 Created by PcbNew   date = 2019-03-02 3:04:42 PM
+
+BeginCmp
+TimeStamp = 5C697BB8
+Path = /5C7B802F
+Reference = J3;
+ValeurCmp = 282836-2;
+IdModule  = Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical;
+EndCmp
+
+BeginCmp
+TimeStamp = 5C697BF3
+Path = /5C4E2BBB
+Reference = Q2;
+ValeurCmp = DS18B20+PAR;
+IdModule  = Connector_PinSocket_2.00mm:PinSocket_1x03_P2.00mm_Vertical;
+EndCmp
+
+BeginCmp
+TimeStamp = 5C697C33
+Path = /5C4E38E6
+Reference = R2;
+ValeurCmp = R;
+IdModule  = Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal;
+EndCmp
+
+BeginCmp
+TimeStamp = 5C697C1C
+Path = /5C51AF1C
+Reference = R1;
+ValeurCmp = R;
+IdModule  = Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal;
+EndCmp
+
+BeginCmp
+TimeStamp = 5C697BD1
+Path = /5C50D8C5
+Reference = J4;
+ValeurCmp = Conn_01x05_Male;
+IdModule  = Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical;
+EndCmp
+
+BeginCmp
+TimeStamp = 5C697B76
+Path = /5C51108D
+Reference = D1;
+ValeurCmp = 1N4001;
+IdModule  = Diode_THT:D_DO-15_P3.81mm_Vertical_AnodeUp;
+EndCmp
+
+BeginCmp
+TimeStamp = 5C697B8C
+Path = /5C50B0D6
+Reference = J1;
+ValeurCmp = Conn_01x02_Male;
+IdModule  = Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical;
+EndCmp
+
+BeginCmp
+TimeStamp = 5C697BA2
+Path = /5C509E66
+Reference = J2;
+ValeurCmp = Conn_01x02_Male;
+IdModule  = Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical;
+EndCmp
+
+BeginCmp
+TimeStamp = 5C697BE3
+Path = /5C4E428C
+Reference = Q1;
+ValeurCmp = 2N3904;
+IdModule  = Package_TO_SOT_THT:TO-92_Inline;
+EndCmp
+
+BeginCmp
+TimeStamp = 5C697C05
+Path = /5C4E41D3
+Reference = Q3;
+ValeurCmp = 2N3904;
+IdModule  = Package_TO_SOT_THT:TO-92_Inline;
+EndCmp
+
+EndListe
