@@ -481,8 +481,8 @@ ARM Macro Assembler    Page 8
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\objects\startup_stm32f10x_md_vl.d -o.\objects\startup_stm32f10x_
 md_vl.o -I.\RTE\Device\STM32F100RB -I.\RTE\_Target_1 -IC:\Keil_v5\ARM\PACK\ARM\
-CMSIS\5.4.0\CMSIS\Core\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\D
-evice\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\RTE_Driver --prede
+CMSIS\5.4.0\CMSIS\Core\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\D
+evice\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\RTE_Driver --prede
 fine="__EVAL SETA 1" --predefine="__UVISION_VERSION SETA 526" --predefine="_RTE
 _ SETA 1" --predefine="STM32F10X_MD_VL SETA 1" --list=.\listings\startup_stm32f
 10x_md_vl.lst RTE\Device\STM32F100RB\startup_stm32f10x_md_vl.s

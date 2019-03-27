@@ -20,5 +20,5 @@
 #include"serial.h"
 
 void xbee_init(void);
-void xbee_send(uint16_t address, uint16_t data);
+void xbee_send(uint16_t address, uint16_t current, uint16_t voltage);
 uint16_t xbee_recieve(void);

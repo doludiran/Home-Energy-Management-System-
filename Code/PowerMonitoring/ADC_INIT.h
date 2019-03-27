@@ -19,5 +19,5 @@
 void Init_ADC(void);
 void ADC_start(int channel);
 int Power_Reading_Res(uint16_t value);
-int Read_ADC();
+int Read_ADC(void);
 void delay(uint32_t count);

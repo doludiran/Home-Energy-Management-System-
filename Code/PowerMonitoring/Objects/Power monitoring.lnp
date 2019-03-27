@@ -5,6 +5,7 @@
 ".\objects\main.o"
 ".\objects\xbee.o"
 ".\objects\serial.o"
+".\objects\systick.o"
 ".\objects\gpio_stm32f10x.o"
 ".\objects\startup_stm32f10x_md_vl.o"
 ".\objects\system_stm32f10x.o"

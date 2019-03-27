@@ -1,4 +1,5 @@
 /**
+ // Code provided by Damilola for system integration
  ******************************************************************************
  * Name:    serial.c
  * Description: USART interface Configuration Implementation
@@ -18,6 +19,8 @@
  */
 
 #include"serial.h"
+#include "Power_monitoring.h"
+#include "xbee.h"
 
 /**
 * Name:           void usart_init()
@@ -26,6 +29,7 @@
 * Preconditions:  stm32f10x.h is included in project
 * Postconditions: 
 */
+
 
 void usart_init()
 {
@@ -38,7 +42,7 @@ GPIOA->CRL &=	~GPIO_CRL_CNF2_0 & ~GPIO_CRL_MODE3;
 
 USART2->CR1 |= USART_CR1_UE;
 USART2->BRR =0x9c4;
-USART2->CR1|=USART_CR1_TE |USART_CR1_RE| USART_CR1_RXNEIE;
+USART2->CR1|=USART_CR1_TE |USART_CR1_RE| USART_CR1_RXNEIE; //| USART_CR1_TXEIE;
 USART2->CR1 &= ~USART_CR1_OVER8 & ~USART_CR1_M & ~USART_CR1_PCE;
 USART2->CR2 &= ~USART_CR2_STOP;	
 NVIC->ISER[1] |= NVIC_ISER_SETENA_6;	
@@ -55,7 +59,8 @@ void usart_tx(uint16_t data)
 {
 	while((USART2->SR & USART_SR_TXE)!= USART_SR_TXE)       //Wait for the TxE bit in USART2_SR to be 1
   { };
-  USART2->DR = data;
+
+USART2->DR = data;
 	
 }
 
@@ -74,7 +79,8 @@ return USART2->DR;
 
 void USART2_IRQHandler()
 {
-	 if (GLOBAL_CHAR_COUNTER < GLOBAL_BUFF_SIZE)
+	
+	if (GLOBAL_CHAR_COUNTER < GLOBAL_BUFF_SIZE)
 		{ 
 			GLOBAL_USART_Received_Data[GLOBAL_CHAR_COUNTER] = USART2->DR;
 			GLOBAL_CHAR_COUNTER++;
@@ -85,6 +91,7 @@ void USART2_IRQHandler()
 			GLOBAL_DATA_RECEIVED =true;
 			GLOBAL_CHAR_COUNTER = 0;
 		}	
+	
 
 }
 

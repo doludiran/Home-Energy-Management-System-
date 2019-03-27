@@ -1,4 +1,5 @@
 /**
+// Code provided by Damilola for system integration
  ******************************************************************************
  * Name:    xbee.c
  * Description: XBee interface Configuration Implementation
@@ -16,7 +17,6 @@
  *         
  *****************************************************************************
  */
-
 
 #include"xbee.h"
 /**
@@ -41,30 +41,32 @@ void xbee_init(void)
 * Preconditions:  16 bit Destination Address and 16 bit Data
 * Postconditions: 
 */
-void xbee_send(uint16_t address, uint16_t data)
+void xbee_send(uint16_t address, uint16_t current, uint16_t voltage)
 {
-	const uint16_t message_buff_size = 11;
+	const uint16_t message_buff_size = 13;
 	uint16_t message[message_buff_size];
 	uint8_t checksum = 0;
 	int i = 0;
 	
 	message[0] = 0x7E;
 	message[1] = 0x00;
-	message[2] = 0x07;
+	message[2] = 0x09;
 	message[3] = 0x01;
-	message[4] = 0x01;
+	message[4] = 0x00;
 	message[5] = (address & 0xFF00) >> 8;
 	message[6] = (address & 0xFF);
 	message[7] = 0x00;
-	message[8] = (data & 0xFF00) >> 8;
-	message[9] = (data & 0xFF);
+	message[8] = (current & 0xFF00) >> 8;
+	message[9] = (current & 0xFF);
+	message[10] = (voltage & 0xFF00) >> 8;
+	message[11] = (voltage & 0xFF);
 	
 	for ( i = 3; i < message_buff_size - 1; i++)
 	{checksum += message[i];}
 	
 	checksum = 0xFF -(checksum & 0xFF);
 	
-	message[10] = checksum;
+	message[12] = checksum;
 	
 	
 	for ( i = 0; i < message_buff_size; i++)
@@ -85,7 +87,19 @@ uint16_t xbee_recieve(void)
 	uint16_t data;
 	uint16_t dataMSB;
 	uint16_t dataLSB;
-	
+//	uint16_t rx_buff[11];
+//	int i = 0;
+//	
+//	for (i=0; i < 11; i++)
+//	{
+//	rx_buff[i] = usart_rx();
+//	}
+//	
+//	dataMSB = (rx_buff[8] & 0xff) << 8;
+//	dataLSB = (rx_buff[9] & 0xff);
+//	data = dataMSB + dataLSB;
+//	return data;
+//	
  if ((GLOBAL_DATA_RECEIVED == true) && (GLOBAL_USART_Received_Data[0] == 0x7E))
  {
 	 dataMSB = (GLOBAL_USART_Received_Data[8] & 0xFF) << 8;
@@ -96,5 +110,7 @@ uint16_t xbee_recieve(void)
 	 return data;
  }
  else{return 0;}
+	
+	
 }
 

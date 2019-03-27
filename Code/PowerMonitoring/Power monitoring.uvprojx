@@ -442,6 +442,16 @@
               <FileType>5</FileType>
               <FilePath>.\serial.h</FilePath>
             </File>
+            <File>
+              <FileName>systick.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\systick.h</FilePath>
+            </File>
+            <File>
+              <FileName>systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\systick.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
