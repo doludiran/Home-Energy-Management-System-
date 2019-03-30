@@ -1,14 +1,12 @@
 def dropt(price, p_rated, energy, t_start, t_complete):
-    import cvxpy as cp
     import numpy as np
-
+    from scipy.optimize import minimize
+    
     n = np.size(price)    
     min_per_k = 1440/n
     
     k_start = t2k(t_start, min_per_k)
-    k_complete = t2k(t_complete,min_per_k)
-      
-    penalty = list(range(0,n))
+    k_complete = t2k(t_complete,min_per_k)   
 
     energy = energy*60/min_per_k # convert kWh to kW min_per_k
     # possible usage time
@@ -18,19 +16,20 @@ def dropt(price, p_rated, energy, t_start, t_complete):
         c = np.zeros(n-k_complete)
         
         k_usage = np.concatenate((a, b, c))
-   
-    # Construct the problem.
-    # q is the power of the appliance
-    q = cp.Variable(n)
-    cp.sum
-    objective = cp.Minimize(price*q + cp.sum(q*penalty))
-    constraints = [0 <= q, q <= p_rated, k_usage*q==energy]
-    prob = cp.Problem(objective, constraints)
+        
+    def objective(x):
+        pen = list(range(0,n))
+        return np.sum(price*x+pen*x*0.01)
+    def constraint1(x):    
+        return np.sum(k_usage*x)-energy  
     
-    # The optimal objective value is returned by `prob.solve()`.
-    prob.solve()
-    return q.value
+    cons = {'type': 'eq', 'fun': constraint1}
+    bnds = ((0.0,p_rated),)*n    
+    x0 = np.ones(n)
+    sol = minimize(objective, x0, method='SLSQP', bounds=bnds, constraints=cons)  
 
+    return sol.x
+  
 def t2k(t_str,min_per_k):
     import math 
     tmp = t_str.split(':')

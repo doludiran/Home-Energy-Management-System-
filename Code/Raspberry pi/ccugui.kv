@@ -3,7 +3,7 @@
 <HomeScreen>:
     id: 'Home'
     BoxLayout:
-        orientation: 'horizontal'
+        orientation: 'vertical'
         canvas:
             Color:
                 rgba: 1, 1, 1, 1 
@@ -15,7 +15,8 @@
             BoxLayout:
                 id: touplot
                 orientation: 'vertical'
-                size_hint: .5,.5
+                size_hint: .5,.5                         
+                            
             BoxLayout:
                 orientation: 'vertical'
                 size_hint: .4,.4
@@ -52,6 +53,43 @@
                             color: 0,0,0,1
                             font_size:40
                             size_hint: .05,.05
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, 0.1
+            GridLayout:
+                cols: 3
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint: 0.1,1
+                    Label:
+                        id: onpeak
+                        text: '[b]ON-PEAK[/b]'
+                        markup: True
+                        font_size:20
+                        color: 0.905,0.30,0.24,1
+                            
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint: 0.1,1
+                    Label:
+                        id: midpeak
+                        text: '[b]MID-PEAK[/b]'
+                        markup: True
+                        font_size:20
+                        color: 0.905,0.64,0.24,1
+                            
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint: 0.1,1
+                        
+                    Label:
+                        id: offpeak
+                        text: '[b]OFF-PEAK[/b]'
+                        markup: True
+                        font_size:20
+                        color: 0.18,0.8,0.44,1
+   
+   
 <MenuScreen>:
     BoxLayout:
         orientation: 'vertical'
@@ -64,7 +102,7 @@
         Button:
             text: 'Back'
             on_press: root.manager.current= 'Home'
-            size_hint: 0.2,0.15
+            size_hint: 0.1,0.15
             
         AnchorLayout:
             orientation: 'horizontal'
@@ -128,9 +166,11 @@
                 size_hint: 0.2, 0.2
                 on_press: root.manager.current= 'Menu'
             Label:
+                id: tusage
                 text: 'Total Usage:'
                 color: 0,0,0,1
             Label:
+                id: tcost
                 text: 'Total Cost:'
                 color: 0,0,0,1
         
@@ -150,7 +190,14 @@
                                 rgba: 0.29,0.54,0.29,1
                             Ellipse:
                                 size: 120, 120
-                                pos: 13, 200
+                                pos: 13, 180
+                        Label:
+                            id: powerdis
+                            text: 'Live Usage: \n 0kW'
+                            font_size: 20
+                            color: 0,0,0,1
+                            pos: 15, 250
+                            
                             
                     BoxLayout:
                         id: consdata
@@ -164,7 +211,7 @@
             
         Label:
             id: charge
-            text: 'not charging'
+            text: 'Not Charging'
             color: 0,0,0,1
             size_hint: 1, 0.1
         BoxLayout:
@@ -172,7 +219,7 @@
             size_hint: 1, 0.2
             Button:
                 id: overide
-                text: 'overide'
+                text: 'Turn On'
                 on_press: root.dr_override = True         
             Button:
                 id: 'schedule'
@@ -189,6 +236,11 @@
             Rectangle:
                 size: root.width, root.height
                 pos: 0, 0
+        Button:
+            text: 'Back'
+            size_hint: 0.1, 0.15
+            on_press: root.manager.current= 'Menu'
+                    
         GridLayout:
             id: thermostat
             cols: 3
@@ -196,101 +248,87 @@
             btn_colour: (2.5, 0, 0, 1)
             BoxLayout:
                 orientation: 'vertical'
-                AnchorLayout:
-                    anchor_x: 'right'
-                    anchor_y: 'center'
-                    size_hint: 0.1, 0.1
-                    pos_hint: {'x': 0.95, 'y': 0.95}
-                    Label:
-                        text: "SETPOINT:"
-                        color: self.parent.parent.parent.colour
-                        font_size: 30
+                FloatLayout:
+                    Button:
+                        id: dresponse
+                        text: 'Demand Response'
+                        background_color: self.parent.parent.parent.btn_colour
+                        size_hint: 1, 0.15
+                        pos: 0, 60
+                
                         
             BoxLayout:
                 orientation: 'vertical'
-                Label:
-                    id: temperature
-                    text: "Thermostat"
-                    color: self.parent.parent.colour
-                    font_size: 50
+#                Label:
+#                    id: temperature
+#                    text: "Thermostat"
+#                    color: self.parent.parent.colour
+#                    font_size: 20
                 Button:
-                    id: increase
+                    name: 'increase'
                     background_color: 0, 0, 0, 0
                     canvas:
                         Color: 
                             rgba: self.parent.parent.colour
                         Triangle:
-                            points: [self.center_x - 70, self.center_y - 20,self.center_x, self.center_y + 80,self.center_x + 70, self.center_y - 20]
-                        
+                            points: [self.center_x - 40, self.center_y - 20,self.center_x, self.center_y + 40,self.center_x + 40, self.center_y - 20]
+                    on_press: root.therm_inc_dec(self)
+                    
                 Label:
+                    id: settemp
                     text: "25"
                     color: self.parent.parent.colour
-                    font_size: 300
+                    font_size: 125
                 Button:
-                    id: 'decrease'
+                    name: 'decrease'
                     background_color: 0, 0, 0, 0
                     size: 10, 10
                     canvas:
                         Color:
                             rgba: self.parent.parent.colour
                         Triangle:
-                            points: [self.center_x - 70, self.center_y + 20,self.center_x, self.center_y - 80,self.center_x + 70, self.center_y + 20]
-                        
+                            points: [self.center_x - 40, self.center_y + 20,self.center_x, self.center_y - 40,self.center_x + 40, self.center_y + 20]
+                    on_press: root.therm_inc_dec(self) 
+                     
                 Label:
                     id: mode
                     text: "Heating"
                     color: self.parent.parent.colour
-                    font_size: 30
+                    font_size: 20
                         
             BoxLayout: 
                 orientation: 'horizontal'
-                AnchorLayout:
-                    anchor_x: 'left'
-                    anchor_y: 'bottom'
-                    size_hint: 0.1, 0.1
-                    pos_hint: {'x': 0, 'y': 0.9}
+                FloatLayout:
                     Label:
-                        text: "Temperature:"
+                        text: "Current Temperature: "
                         color: self.parent.parent.parent.colour
-                        font_size: 30
-                AnchorLayout:
-                    anchor_x: 'left'
-                    anchor_y: 'top'
-                    size_hint: 0.1, 0.1
-                    pos_hint: {'x': 0, 'y': 0.9}
+                        font_size: 18
+                        pos: 590, 270
+                         
+                FloatLayout:
                     Label:
+                        id: current
                         text: "25"
                         color: self.parent.parent.parent.colour
                         font_size: 30
+                        pos: 700, 270
         BoxLayout:
             orientation: 'horizontal'
-            size_hint: 1,0.1
+            size_hint: 1,0.14
             Button:
                 id: heat
                 text: 'Heat'
-                font_size: 40
+                font_size: 20
                 background_color: root.ids.thermostat.btn_colour
                 on_press: root.heat_mode()
             Button:
                 id: cool
                 text: 'Cool'
-                font_size: 40
+                font_size: 20
                 size: 10, 10
                 background_color: root.ids.thermostat.btn_colour
                 on_press: root.cool_mode()
-            Button:
-                id: eco
-                text: 'Schedule'
-                font_size: 40
-                size: 10, 10
-                background_color: root.ids.thermostat.btn_colour
-                
-            Button:
-                id: usage
-                text: 'History'
-                font_size: 40
-                size: 10, 10
-                background_color: root.ids.thermostat.btn_colour
+
 <schedule>:
     id: schedule
     active_text: "starttime"
