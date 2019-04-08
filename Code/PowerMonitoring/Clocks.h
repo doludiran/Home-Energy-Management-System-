@@ -1,4 +1,4 @@
-// taken from "lab1_lib.h" provided by Dave.
+// taken from "lab1_lib.h" provided by Dave Duguid in ENEL 387
 
 #include <stdint.h>
 

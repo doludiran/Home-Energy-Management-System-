@@ -1,20 +1,24 @@
+/**
+// Header format used with permission from Damilola Oludiran
+ ******************************************************************************
+ * Name: ADC_INIT.c
+ * Description: ADC initialization and other ADC functions
+ * Version: V1.0
+ * Author: Bikramjit Saini 
+  
+ *
+ * This software is supplied "AS IS" without warranties of any kind.
+ *
+ *
+ *----------------------------------------------------------------------------
+ * History:
+ *          V1.0 Initial Version by Bikramjit Saini
+ *            
+ *         
+ *****************************************************************************
+ */
+
 #include <stdint.h>
-
-
-//#define PIN9_OFF	0X00000200 //
-//#define PIN9_ON 0x02000000 //
-// 
-//#define PIN8_ON	0x00000100 //
-//#define PIN8_OFF	0x01000000 //
-
-//#define PIN7_OFF	0x00000080 //
-//#define PIN7_ON	0x00800000 //
-
-//#define PIN6_OFF	0x00000040 //
-//#define PIN6_ON	0x00400000 //
-
-//#define PIN12_OFF	0x00001000 //
-//#define PIN12_ON	0x10000000 //
 
 void Init_ADC(void);
 void ADC_start(int channel);

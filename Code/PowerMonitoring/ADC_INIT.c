@@ -1,4 +1,23 @@
-//#include "ADC_Init.h"
+/**
+// Header format used with permission from Damilola Oludiran
+ ******************************************************************************
+ * Name: ADC_INIT.c
+ * Description: ADC initialization and other ADC functions
+ * Version: V1.0
+ * Author: Bikramjit Saini 
+  
+ *
+ * This software is supplied "AS IS" without warranties of any kind.
+ *
+ *
+ *----------------------------------------------------------------------------
+ * History:
+ *          V1.0 Initial Version by Bikramjit Saini
+ *            
+ *         
+ *****************************************************************************
+ */
+
 #include "stm32f10x.h"
 #include "IOdef.h"
 #include "ADC_INIT.h"
@@ -11,47 +30,25 @@ Return: none
 {
 		// enable clock for IO port A and ADC1 interface
 	RCC->APB2ENR |=  RCC_APB2ENR_IOPAEN | RCC_APB2ENR_ADC1EN;
-	GPIOA->CRL &= ~GPIO_CRL_MODE0 & ~GPIO_CRL_MODE1;
-	GPIOA->CRL |= GPIO_CRL_CNF0_1 | GPIO_CRL_CNF1_1;
-	
-	ADC1->SMPR2 |= ADC_SMPR2_SMP0 | ADC_SMPR2_SMP1;
-	ADC1->SQR1 |= ADC_SQR1_L_0;
-	ADC1->CR1 |= ADC_CR1_SCAN;
 
-	ADC1->CR2 |= ADC_CR2_ADON | ADC_CR2_EXTTRIG | ADC_CR2_EXTSEL | ADC_CR2_SWSTART | ADC_CR2_RSTCAL;
-	while((ADC1->CR2 & ADC_CR2_RSTCAL) == ADC_CR2_RSTCAL) {}
+	GPIOA->CRL &= ~(GPIO_CRL_CM0 | GPIO_CRL_CM1 ); 
+	GPIOA->CRL |= (GPIO_CRL_CM0_AN | GPIO_CRL_CM1_AN);
 		
-	ADC1->CR2 |= ADC_CR2_CAL;
-	while((ADC1->CR2 & ADC_CR2_CAL) == ADC_CR2_CAL){}
-	
-	ADC1->CR2 |= ADC_CR2_ADON | ADC_CR2_SWSTART;
-	
-  ADC1->SQR3 &= ~ADC_SQR3_SQ1;
-		
-		// configure port A for analog input
-		//GPIOA -> CRL |= GPIO_CRL_MODE1;
-		//GPIOA -> CRL &= ~GPIO_CRL_CNF1;
-		
-//	GPIOA->CRL &= ~(GPIO_CRL_CM0 | GPIO_CRL_CM1 ); 
-//	GPIOA->CRL |= (GPIO_CRL_CM0_AN | GPIO_CRL_CM1_AN);
+	// Calibrate ADC
+	ADC1-> CR2 |= ADC_CR2_CAL ;
 
-//		
-//	// Calibrate ADC
-//	ADC1-> CR2 |= ADC_CR2_CAL ;
+	// turn ADC 'on'
+	ADC1-> CR2 |=	ADC_CR2_ADON;
 
-//	// turn ADC 'on'
-//	ADC1-> CR2 |=	ADC_CR2_ADON;
-
-//	//select sampling time 
-//	ADC1-> SMPR2 |= ((uint32_t)0x0000000F) | ((uint32_t)0x00000030); 
+	//select sampling time 
+	ADC1-> SMPR2 |= ((uint32_t)0x0000000F) | ((uint32_t)0x00000030); 
 }
-
 
 //----------------------------------------------------------------------------------//
 
 
 /* Function to select the ADC channel
-Input: Integer value corresponding to the channel to be used
+Input: Integer value corresponding to the ADC channel to be used
 Return: None
 */
 void ADC_start(int channel)
@@ -77,12 +74,10 @@ Return: integer value
 */
 int Read_ADC()
 {	
-//	while((ADC1->SR & ADC_SR_EOC) != ADC_SR_EOC)
-//	{
-//	}
-	if((ADC1->SR & ADC_SR_EOC) == ADC_SR_EOC)
-	{return (ADC1->DR & ADC_DR_DATA);}
-	else {return 0; }
+	while((ADC1->SR & ADC_SR_EOC) != ADC_SR_EOC)
+	{
+	}
+	return (ADC1->DR & ADC_DR_DATA);
 }
 
 
@@ -104,7 +99,6 @@ int Power_Reading_Res(uint16_t value)
 //----------------------------------------------------------------------------------//
 
 
-
 /* Function to add a delay
 Input: 32 bit integer for delay counter (12000 will give 2 ms delay)
 Return: none
@@ -118,4 +112,4 @@ void delay(uint32_t count)
 	}
 }
 
-
+// Reference: The code was written under the guidance of Dave Duguid in ENEL 387 lab

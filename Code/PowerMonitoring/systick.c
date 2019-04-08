@@ -27,9 +27,10 @@
 */
 void SysTick_Init(void)
 {
+	int total_time = 5000000;
   SysTick->CTRL &= 0x0;
 	SysTick->VAL &= 0x0;
-	SysTick->LOAD |= 5000000*(SysTick->CALIB & SysTick_CALIB_TENMS);
+	SysTick->LOAD |= total_time*(SysTick->CALIB & SysTick_CALIB_TENMS);
 	SysTick->CTRL |= SysTick_CTRL_ENABLE | SysTick_CTRL_TICKINT | SysTick_CTRL_CLKSOURCE;
 	
 }

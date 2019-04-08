@@ -319,28 +319,28 @@ Image Symbol Table
     .text                                    0x08000276   Section        0  indicate_semi.o(.text)
     i.ADC_start                              0x08000278   Section        0  adc_init.o(i.ADC_start)
     i.Init_ADC                               0x080002b4   Section        0  adc_init.o(i.Init_ADC)
-    i.Power_Reading_Res                      0x08000378   Section        0  adc_init.o(i.Power_Reading_Res)
-    i.Read_ADC                               0x0800038c   Section        0  adc_init.o(i.Read_ADC)
-    i.SetSysClock                            0x080003ac   Section        0  system_stm32f10x.o(i.SetSysClock)
-    SetSysClock                              0x080003ad   Thumb Code     8  system_stm32f10x.o(i.SetSysClock)
-    i.SetSysClockTo24                        0x080003b4   Section        0  system_stm32f10x.o(i.SetSysClockTo24)
-    SetSysClockTo24                          0x080003b5   Thumb Code   178  system_stm32f10x.o(i.SetSysClockTo24)
-    i.SysTick_Handler                        0x0800046c   Section        0  systick.o(i.SysTick_Handler)
-    i.SysTick_Init                           0x08000478   Section        0  systick.o(i.SysTick_Init)
-    i.SystemInit                             0x080004b4   Section        0  system_stm32f10x.o(i.SystemInit)
-    i.USART2_IRQHandler                      0x08000518   Section        0  serial.o(i.USART2_IRQHandler)
-    i.clockInit                              0x0800056c   Section        0  clocks.o(i.clockInit)
-    i.delay                                  0x08000598   Section        0  adc_init.o(i.delay)
-    i.main                                   0x080005a8   Section        0  main.o(i.main)
-    i.powermonitoring                        0x08000628   Section        0  power_monitoring.o(i.powermonitoring)
-    i.switch_enable                          0x08000670   Section        0  power_monitoring.o(i.switch_enable)
-    i.switch_off                             0x080006cc   Section        0  power_monitoring.o(i.switch_off)
-    i.switch_on                              0x080006dc   Section        0  power_monitoring.o(i.switch_on)
-    i.usart_init                             0x080006e8   Section        0  serial.o(i.usart_init)
-    i.usart_tx                               0x0800076c   Section        0  serial.o(i.usart_tx)
-    i.xbee_init                              0x08000788   Section        0  xbee.o(i.xbee_init)
-    i.xbee_recieve                           0x08000798   Section        0  xbee.o(i.xbee_recieve)
-    i.xbee_send                              0x080007d0   Section        0  xbee.o(i.xbee_send)
+    i.Power_Reading_Res                      0x08000308   Section        0  adc_init.o(i.Power_Reading_Res)
+    i.Read_ADC                               0x0800031c   Section        0  adc_init.o(i.Read_ADC)
+    i.SetSysClock                            0x08000338   Section        0  system_stm32f10x.o(i.SetSysClock)
+    SetSysClock                              0x08000339   Thumb Code     8  system_stm32f10x.o(i.SetSysClock)
+    i.SetSysClockTo24                        0x08000340   Section        0  system_stm32f10x.o(i.SetSysClockTo24)
+    SetSysClockTo24                          0x08000341   Thumb Code   178  system_stm32f10x.o(i.SetSysClockTo24)
+    i.SysTick_Handler                        0x080003f8   Section        0  systick.o(i.SysTick_Handler)
+    i.SysTick_Init                           0x08000404   Section        0  systick.o(i.SysTick_Init)
+    i.SystemInit                             0x08000440   Section        0  system_stm32f10x.o(i.SystemInit)
+    i.USART2_IRQHandler                      0x080004a4   Section        0  serial.o(i.USART2_IRQHandler)
+    i.clockInit                              0x080004f8   Section        0  clocks.o(i.clockInit)
+    i.delay                                  0x08000524   Section        0  adc_init.o(i.delay)
+    i.main                                   0x08000534   Section        0  main.o(i.main)
+    i.powermonitoring                        0x080005b4   Section        0  power_monitoring.o(i.powermonitoring)
+    i.switch_enable                          0x08000604   Section        0  power_monitoring.o(i.switch_enable)
+    i.switch_off                             0x08000660   Section        0  power_monitoring.o(i.switch_off)
+    i.switch_on                              0x08000670   Section        0  power_monitoring.o(i.switch_on)
+    i.usart_init                             0x0800067c   Section        0  serial.o(i.usart_init)
+    i.usart_tx                               0x08000700   Section        0  serial.o(i.usart_tx)
+    i.xbee_init                              0x0800071c   Section        0  xbee.o(i.xbee_init)
+    i.xbee_recieve                           0x0800072c   Section        0  xbee.o(i.xbee_recieve)
+    i.xbee_send                              0x08000764   Section        0  xbee.o(i.xbee_send)
     .data                                    0x20000000   Section       16  main.o(.data)
     .bss                                     0x20000010   Section       60  main.o(.bss)
     .bss                                     0x2000004c   Section       96  libspace.o(.bss)
@@ -498,27 +498,27 @@ Image Symbol Table
     __use_no_semihosting_swi                 0x08000275   Thumb Code     2  use_no_semi.o(.text)
     __semihosting_library_function           0x08000277   Thumb Code     0  indicate_semi.o(.text)
     ADC_start                                0x08000279   Thumb Code    54  adc_init.o(i.ADC_start)
-    Init_ADC                                 0x080002b5   Thumb Code   174  adc_init.o(i.Init_ADC)
-    Power_Reading_Res                        0x08000379   Thumb Code    18  adc_init.o(i.Power_Reading_Res)
-    Read_ADC                                 0x0800038d   Thumb Code    26  adc_init.o(i.Read_ADC)
-    SysTick_Handler                          0x0800046d   Thumb Code     8  systick.o(i.SysTick_Handler)
-    SysTick_Init                             0x08000479   Thumb Code    56  systick.o(i.SysTick_Init)
-    SystemInit                               0x080004b5   Thumb Code    82  system_stm32f10x.o(i.SystemInit)
-    USART2_IRQHandler                        0x08000519   Thumb Code    62  serial.o(i.USART2_IRQHandler)
-    clockInit                                0x0800056d   Thumb Code    30  clocks.o(i.clockInit)
-    delay                                    0x08000599   Thumb Code    14  adc_init.o(i.delay)
-    main                                     0x080005a9   Thumb Code   114  main.o(i.main)
-    powermonitoring                          0x08000629   Thumb Code    72  power_monitoring.o(i.powermonitoring)
-    switch_enable                            0x08000671   Thumb Code    78  power_monitoring.o(i.switch_enable)
-    switch_off                               0x080006cd   Thumb Code    10  power_monitoring.o(i.switch_off)
-    switch_on                                0x080006dd   Thumb Code     8  power_monitoring.o(i.switch_on)
-    usart_init                               0x080006e9   Thumb Code   116  serial.o(i.usart_init)
-    usart_tx                                 0x0800076d   Thumb Code    22  serial.o(i.usart_tx)
-    xbee_init                                0x08000789   Thumb Code    14  xbee.o(i.xbee_init)
-    xbee_recieve                             0x08000799   Thumb Code    46  xbee.o(i.xbee_recieve)
-    xbee_send                                0x080007d1   Thumb Code   150  xbee.o(i.xbee_send)
-    Region$$Table$$Base                      0x08000868   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08000888   Number         0  anon$$obj.o(Region$$Table)
+    Init_ADC                                 0x080002b5   Thumb Code    70  adc_init.o(i.Init_ADC)
+    Power_Reading_Res                        0x08000309   Thumb Code    18  adc_init.o(i.Power_Reading_Res)
+    Read_ADC                                 0x0800031d   Thumb Code    24  adc_init.o(i.Read_ADC)
+    SysTick_Handler                          0x080003f9   Thumb Code     8  systick.o(i.SysTick_Handler)
+    SysTick_Init                             0x08000405   Thumb Code    56  systick.o(i.SysTick_Init)
+    SystemInit                               0x08000441   Thumb Code    82  system_stm32f10x.o(i.SystemInit)
+    USART2_IRQHandler                        0x080004a5   Thumb Code    62  serial.o(i.USART2_IRQHandler)
+    clockInit                                0x080004f9   Thumb Code    30  clocks.o(i.clockInit)
+    delay                                    0x08000525   Thumb Code    14  adc_init.o(i.delay)
+    main                                     0x08000535   Thumb Code   114  main.o(i.main)
+    powermonitoring                          0x080005b5   Thumb Code    80  power_monitoring.o(i.powermonitoring)
+    switch_enable                            0x08000605   Thumb Code    78  power_monitoring.o(i.switch_enable)
+    switch_off                               0x08000661   Thumb Code    10  power_monitoring.o(i.switch_off)
+    switch_on                                0x08000671   Thumb Code     8  power_monitoring.o(i.switch_on)
+    usart_init                               0x0800067d   Thumb Code   116  serial.o(i.usart_init)
+    usart_tx                                 0x08000701   Thumb Code    22  serial.o(i.usart_tx)
+    xbee_init                                0x0800071d   Thumb Code    14  xbee.o(i.xbee_init)
+    xbee_recieve                             0x0800072d   Thumb Code    46  xbee.o(i.xbee_recieve)
+    xbee_send                                0x08000765   Thumb Code   150  xbee.o(i.xbee_send)
+    Region$$Table$$Base                      0x080007fc   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x0800081c   Number         0  anon$$obj.o(Region$$Table)
     GLOBAL_BUFF_SIZE                         0x20000000   Data           4  main.o(.data)
     GLOBAL_DATA_RECEIVED                     0x20000004   Data           1  main.o(.data)
     GLOBAL_PWR_SEND                          0x20000005   Data           1  main.o(.data)
@@ -536,9 +536,9 @@ Memory Map of the image
 
   Image Entry point : 0x080001bd
 
-  Load Region LR_1 (Base: 0x08000000, Size: 0x00000898, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x08000000, Size: 0x0000082c, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00000888, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0000081c, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -601,48 +601,48 @@ Memory Map of the image
     0x08000276   0x08000276   0x00000000   Code   RO          525    .text               c_w.l(indicate_semi.o)
     0x08000276   0x08000276   0x00000002   PAD
     0x08000278   0x08000278   0x0000003c   Code   RO           60    i.ADC_start         adc_init.o
-    0x080002b4   0x080002b4   0x000000c4   Code   RO           61    i.Init_ADC          adc_init.o
-    0x08000378   0x08000378   0x00000012   Code   RO           62    i.Power_Reading_Res  adc_init.o
-    0x0800038a   0x0800038a   0x00000002   PAD
-    0x0800038c   0x0800038c   0x00000020   Code   RO           63    i.Read_ADC          adc_init.o
-    0x080003ac   0x080003ac   0x00000008   Code   RO          376    i.SetSysClock       system_stm32f10x.o
-    0x080003b4   0x080003b4   0x000000b8   Code   RO          377    i.SetSysClockTo24   system_stm32f10x.o
-    0x0800046c   0x0800046c   0x0000000c   Code   RO          290    i.SysTick_Handler   systick.o
-    0x08000478   0x08000478   0x0000003c   Code   RO          291    i.SysTick_Init      systick.o
-    0x080004b4   0x080004b4   0x00000064   Code   RO          379    i.SystemInit        system_stm32f10x.o
-    0x08000518   0x08000518   0x00000054   Code   RO          244    i.USART2_IRQHandler  serial.o
-    0x0800056c   0x0800056c   0x0000002c   Code   RO            4    i.clockInit         clocks.o
-    0x08000598   0x08000598   0x0000000e   Code   RO           64    i.delay             adc_init.o
-    0x080005a6   0x080005a6   0x00000002   PAD
-    0x080005a8   0x080005a8   0x00000080   Code   RO          170    i.main              main.o
-    0x08000628   0x08000628   0x00000048   Code   RO          114    i.powermonitoring   power_monitoring.o
-    0x08000670   0x08000670   0x0000005c   Code   RO          115    i.switch_enable     power_monitoring.o
-    0x080006cc   0x080006cc   0x00000010   Code   RO          116    i.switch_off        power_monitoring.o
-    0x080006dc   0x080006dc   0x0000000c   Code   RO          117    i.switch_on         power_monitoring.o
-    0x080006e8   0x080006e8   0x00000084   Code   RO          245    i.usart_init        serial.o
-    0x0800076c   0x0800076c   0x0000001c   Code   RO          247    i.usart_tx          serial.o
-    0x08000788   0x08000788   0x0000000e   Code   RO          208    i.xbee_init         xbee.o
-    0x08000796   0x08000796   0x00000002   PAD
-    0x08000798   0x08000798   0x00000038   Code   RO          209    i.xbee_recieve      xbee.o
-    0x080007d0   0x080007d0   0x00000096   Code   RO          210    i.xbee_send         xbee.o
-    0x08000866   0x08000866   0x00000002   PAD
-    0x08000868   0x08000868   0x00000020   Data   RO          578    Region$$Table       anon$$obj.o
+    0x080002b4   0x080002b4   0x00000054   Code   RO           61    i.Init_ADC          adc_init.o
+    0x08000308   0x08000308   0x00000012   Code   RO           62    i.Power_Reading_Res  adc_init.o
+    0x0800031a   0x0800031a   0x00000002   PAD
+    0x0800031c   0x0800031c   0x0000001c   Code   RO           63    i.Read_ADC          adc_init.o
+    0x08000338   0x08000338   0x00000008   Code   RO          376    i.SetSysClock       system_stm32f10x.o
+    0x08000340   0x08000340   0x000000b8   Code   RO          377    i.SetSysClockTo24   system_stm32f10x.o
+    0x080003f8   0x080003f8   0x0000000c   Code   RO          290    i.SysTick_Handler   systick.o
+    0x08000404   0x08000404   0x0000003c   Code   RO          291    i.SysTick_Init      systick.o
+    0x08000440   0x08000440   0x00000064   Code   RO          379    i.SystemInit        system_stm32f10x.o
+    0x080004a4   0x080004a4   0x00000054   Code   RO          244    i.USART2_IRQHandler  serial.o
+    0x080004f8   0x080004f8   0x0000002c   Code   RO            4    i.clockInit         clocks.o
+    0x08000524   0x08000524   0x0000000e   Code   RO           64    i.delay             adc_init.o
+    0x08000532   0x08000532   0x00000002   PAD
+    0x08000534   0x08000534   0x00000080   Code   RO          170    i.main              main.o
+    0x080005b4   0x080005b4   0x00000050   Code   RO          114    i.powermonitoring   power_monitoring.o
+    0x08000604   0x08000604   0x0000005c   Code   RO          115    i.switch_enable     power_monitoring.o
+    0x08000660   0x08000660   0x00000010   Code   RO          116    i.switch_off        power_monitoring.o
+    0x08000670   0x08000670   0x0000000c   Code   RO          117    i.switch_on         power_monitoring.o
+    0x0800067c   0x0800067c   0x00000084   Code   RO          245    i.usart_init        serial.o
+    0x08000700   0x08000700   0x0000001c   Code   RO          247    i.usart_tx          serial.o
+    0x0800071c   0x0800071c   0x0000000e   Code   RO          208    i.xbee_init         xbee.o
+    0x0800072a   0x0800072a   0x00000002   PAD
+    0x0800072c   0x0800072c   0x00000038   Code   RO          209    i.xbee_recieve      xbee.o
+    0x08000764   0x08000764   0x00000096   Code   RO          210    i.xbee_send         xbee.o
+    0x080007fa   0x080007fa   0x00000002   PAD
+    0x080007fc   0x080007fc   0x00000020   Data   RO          578    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x08000888, Size: 0x00000010, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x0800081c, Size: 0x00000010, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x08000888   0x00000010   Data   RW          172    .data               main.o
+    0x20000000   0x0800081c   0x00000010   Data   RW          172    .data               main.o
 
 
-    Execution Region ER_ZI (Exec base: 0x20000010, Load base: 0x08000898, Size: 0x000006a0, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_ZI (Exec base: 0x20000010, Load base: 0x0800082c, Size: 0x000006a0, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x20000010        -       0x0000003c   Zero   RW          171    .bss                main.o
     0x2000004c        -       0x00000060   Zero   RW          452    .bss                c_w.l(libspace.o)
-    0x200000ac   0x08000898   0x00000004   PAD
+    0x200000ac   0x0800082c   0x00000004   PAD
     0x200000b0        -       0x00000200   Zero   RW          367    HEAP                startup_stm32f10x_md_vl.o
     0x200002b0        -       0x00000400   Zero   RW          366    STACK               startup_stm32f10x_md_vl.o
 
@@ -654,10 +654,10 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       320         34          0          0          0       2442   adc_init.o
+       204         24          0          0          0       2378   adc_init.o
         44         14          0          0          0       4984   clocks.o
        128         14          0         16         60       1728   main.o
-       192         24          0          0          0       1943   power_monitoring.o
+       200         24          0          0          0       1947   power_monitoring.o
        244         44          0          0          0       1340   serial.o
         64         26        288          0       1536        856   startup_stm32f10x_md_vl.o
        292         24          0          0          0       2221   system_stm32f10x.o
@@ -665,7 +665,7 @@ Image component sizes
        220         10          0          0          0       2255   xbee.o
 
     ----------------------------------------------------------------------
-      1584        198        320         16       1596      18618   Object Totals
+      1476        188        320         16       1596      18558   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          8          0          0          0          0          0   (incl. Padding)
 
@@ -714,15 +714,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      1864        214        320         16       1696      18106   Grand Totals
-      1864        214        320         16       1696      18106   ELF Image Totals
-      1864        214        320         16          0          0   ROM Totals
+      1756        204        320         16       1696      18046   Grand Totals
+      1756        204        320         16       1696      18046   ELF Image Totals
+      1756        204        320         16          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 2184 (   2.13kB)
+    Total RO  Size (Code + RO Data)                 2076 (   2.03kB)
     Total RW  Size (RW Data + ZI Data)              1712 (   1.67kB)
-    Total ROM Size (Code + RO Data + RW Data)       2200 (   2.15kB)
+    Total ROM Size (Code + RO Data + RW Data)       2092 (   2.04kB)
 
 ==============================================================================
 

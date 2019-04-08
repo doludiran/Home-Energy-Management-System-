@@ -87,19 +87,7 @@ uint16_t xbee_recieve(void)
 	uint16_t data;
 	uint16_t dataMSB;
 	uint16_t dataLSB;
-//	uint16_t rx_buff[11];
-//	int i = 0;
-//	
-//	for (i=0; i < 11; i++)
-//	{
-//	rx_buff[i] = usart_rx();
-//	}
-//	
-//	dataMSB = (rx_buff[8] & 0xff) << 8;
-//	dataLSB = (rx_buff[9] & 0xff);
-//	data = dataMSB + dataLSB;
-//	return data;
-//	
+
  if ((GLOBAL_DATA_RECEIVED == true) && (GLOBAL_USART_Received_Data[0] == 0x7E))
  {
 	 dataMSB = (GLOBAL_USART_Received_Data[8] & 0xFF) << 8;

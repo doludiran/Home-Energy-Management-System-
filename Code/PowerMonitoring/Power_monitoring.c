@@ -1,12 +1,30 @@
+/**
+// Header format used with permission from Damilola Oludiran
+ ******************************************************************************
+ * Name: Power-monitoring.c
+ * Description: Functions for power monitoring and switching the electric load on/off
+ * Version: V1.0
+ * Author: Bikramjit Saini
+  
+ *
+ * This software is supplied "AS IS" without warranties of any kind.
+ *
+ *
+ *----------------------------------------------------------------------------
+ * History:
+ *          V1.0 Initial Version by Bikramjit Saini
+ *            
+ *         
+ *****************************************************************************
+ */
+ 
 #include "stm32f10x.h"
 #include "Power_monitoring.h"
 #include "ADC_INIT.h"
 #include "xbee.h"
 
-extern bool GLOBAL_PWR_SEND;
-
 /*
-  Purpose: Enable clock and set the config and mode bits of port B to push pull output
+  Purpose: Enable clock and set the config and mode bits of port B and C to push pull output
   Argument(s): N/A
   Precondition(s): N/A
   Returns: N/A
@@ -22,8 +40,10 @@ void switch_enable ()
 	// configuration: General purpose output push pull
 	 GPIOB->CRL |= GPIO_CRL_MODE0;
 	 GPIOB->CRL &= ~GPIO_CRL_CNF0;
+	
 	 GPIOC->CRH |= GPIO_CRH_MODE8;
 	 GPIOC->CRH &= ~GPIO_CRH_CNF8;
+	
 	 GPIOC->CRH |= GPIO_CRH_MODE9;
 	 GPIOC->CRH &= ~GPIO_CRH_CNF9;
 }
@@ -49,14 +69,13 @@ void powermonitoring()
      ADC_start(0); 						// channel 0 for Voltage
      voltage_temp  = Read_ADC();
 	   voltage = Power_Reading_Res(voltage_temp);
-	 
+	   delay(6000);
+	
 	   ADC_start(1); 						// channel 1 for Current
      current_temp = Read_ADC();	
      current = Power_Reading_Res(current_temp);
 		 delay(6000);
 		 xbee_send(0xFFFF,current, voltage); 
-		 
-		 
 }
 
 //----------------------------------------------------------------------------------//
@@ -87,9 +106,6 @@ void switch_off()
 {
 	GPIOB->BSRR = SWITCH_OFF;
 }
-//	{
-//	 GPIOB->ODR = GPIO_ODR_ODR0;
-//	 GPIOC->ODR ^= GPIO_ODR_ODR8;
-//	//}GPIOC->ODR = ~GPIO_ODR_ODR8;
+
 
 
