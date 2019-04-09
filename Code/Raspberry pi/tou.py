@@ -1,3 +1,23 @@
+#################################################################################
+# Name: tou.py                                                                  #
+# Description: ToU data Retrieval unit                                          #
+# Version: V1.1                                                                 #
+# Author: Damilola Oludiran                                                     #
+#                                                                               #
+#                                                                               #
+# This software is supplied "AS IS" without warranties of any kind.             #
+#                                                                               #
+#----------------------------------------------------------------------------   #
+# History:                                                                      #
+#            V1.0 Initial Version by Damilola Oludiran                          #
+#            V1.1 Changed implementation to threaded class by Damilola Oludiran #
+#                                                                               #
+#################################################################################
+
+#################################################################################
+# Imports                                                                       #
+#################################################################################
+
 import threading
 import queue as Queue
 from time import sleep
@@ -10,39 +30,83 @@ Total_Daily_Minutes =1440
 DR_interval = 15
 minutes = 60
 
+#################################################################################
+# ToU Thread Class                                                              #
+#################################################################################
+
 class ToU(threading.Thread):
     rxQueue = Queue.Queue(maxsize=1)
     stop = threading.Event()
     
+    #################################################################################
+    # Name: __init__                                                                #
+    # Parameters: self                                                              #
+    # Description: This method initialises the thread                               #
+    # Preconditions: Internet access is configured                                  #
+    # Postconditions: Thread starts                                                 #
+    #################################################################################
     def __init__(self):
         threading.Thread.__init__(self)
         self.start()
     
+    
+    #################################################################################
+    # Name: shutdown                                                                #
+    # Parameters: self                                                              #
+    # Description: This method terminates the thread                                #
+    # Preconditions:n/a                                                             #
+    # Postconditions: Thread stops running                                          #
+    #################################################################################
     def shutdown(self):
         self.stop.set()
         self.join()
     
+    #################################################################################
+    # Name: run                                                                     #
+    # Parameters: self                                                              #
+    # Description: This method is the thread's main loop                            #
+    # Preconditions: n/a                                                            #
+    # Postconditions: Continuously retrieves tou data                               #
+    #################################################################################
     def run(self):
         while not self.stop.is_set():
             self.getToU()
             sleep(0.1)
-    
+
+    #################################################################################
+    # Name: recieveTemp                                                             #
+    # Parameters: self                                                              #
+    # Description: This method returns the tou data                                 #
+    # Preconditions: rxQueue is initialised                                         #
+    # Postconditions: returns queue data if any                                     #
+    #################################################################################
     def recieveTOU(self):
         if not self.rxQueue.empty():
             return self.rxQueue.get()
         else:
             return 0
-#        try:
-#            return self.rxQueue.get(timeout=5)
-#        except Queue.Empty:
-#            return None
-    
+
+    #################################################################################
+    # Name: converttomins                                                           #
+    # Parameters: self, time and format of the time                                 #
+    # Description: This method returns total minutes as interger                    #
+    # Preconditions: n/a                                                            #
+    # Postconditions: returns total time in minutes                                 #
+    #################################################################################
     def converttomins(self, timevalue, timeformat):
         t1 = DT.datetime.strptime(timevalue, timeformat)
         t2 = DT.datetime(1900,1,1)
         totalminutes = (t1-t2).total_seconds()/minutes
         return totalminutes
 
+    #################################################################################
+    # Name: retrieveToU                                                             #
+    # Parameters: self                                                              #
+    # Description: This method returns the tou                                      #
+    # Preconditions: internet connection is set up                                  #
+    #                ToU data is available in the expected format                   #
+    # Postconditions: returns tou data if any                                       #
+    #################################################################################
     def retrieveToU(self):
         tou=requests.get('http://www2.cs.uregina.ca/~joshi26a/utility portal/tou_json/tou_json.json').json()
         tou_d = tou[0]
@@ -66,7 +130,16 @@ class ToU(threading.Thread):
             tou_df[i]['Total Minutes p'] = diff2
             i+=1
         return tou_df
-
+    
+    #################################################################################
+    # Name: getToU                                                                  #
+    # Parameters: self                                                              #
+    # Description: This method returns the tou in arrays of different formats as    #
+    #              required by different functions in the main application          #
+    # Preconditions: internet connection is set up                                  #
+    #                ToU data is available in the expected format                   #
+    # Postconditions: returns tou data in queue if any                              #
+    #################################################################################
     def getToU(self):
         
         data = self.retrieveToU()

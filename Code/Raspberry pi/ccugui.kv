@@ -1,3 +1,19 @@
+#################################################################################
+# Name: ccugui.kv                                                               #
+# Description: User interface Application Layout design                         #
+# Version: V1.2                                                                 #
+# Author: Damilola Oludiran                                                     #
+#                                                                               #
+#                                                                               #
+# This software is supplied "AS IS" without warranties of any kind.             #
+#                                                                               #
+#----------------------------------------------------------------------------   #
+# History:                                                                      #
+#            V1.0 Initial Version by Damilola Oludiran                          #
+#            V1.1 Revised Layouts by Damilola Oludiran                          #
+#            V1.2 Revised Layouts by Damilola Oludiran                          #
+#################################################################################
+
 <CCUGUI>:
     id: manager
 <HomeScreen>:
@@ -194,7 +210,6 @@
                         Label:
                             id: powerdis
                             text: 'Live Usage: \n 0kW'
-                            font_size: 20
                             color: 0,0,0,1
                             pos: 15, 250
                             
@@ -253,8 +268,9 @@
                         id: dresponse
                         text: 'Demand Response'
                         background_color: self.parent.parent.parent.btn_colour
-                        size_hint: 1, 0.15
+                        size_hint: 0.52, 0.15
                         pos: 0, 60
+                        on_press: root.setDemand()
                 
                         
             BoxLayout:
@@ -303,7 +319,7 @@
                         text: "Current Temperature: "
                         color: self.parent.parent.parent.colour
                         font_size: 18
-                        pos: 590, 270
+                        pos: 580, 270
                          
                 FloatLayout:
                     Label:

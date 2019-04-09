@@ -1,3 +1,17 @@
+#################################################################################
+# Name: dropt.py                                                                #
+# Description: EV Charging Optimization module                                  #
+# Version: V1.0                                                                 #
+# Author: Dr Gerald Wang                                                        #
+#                                                                               #
+#                                                                               #
+# This software is supplied "AS IS" without warranties of any kind.             #
+#                                                                               #
+#----------------------------------------------------------------------------   #
+# History:                                                                      #
+#            V1.0 Initial Version by Dr Wang                                    #
+#                                                                               #
+#################################################################################
 def dropt(price, p_rated, energy, t_start, t_complete):
     import numpy as np
     from scipy.optimize import minimize

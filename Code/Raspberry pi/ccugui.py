@@ -1,4 +1,45 @@
+#################################################################################
+# Name: ccugui.py                                                               #
+# Description: Main system control and user interface                           #
+# Version: V3.1                                                                 #
+# Author: Damilola Oludiran                                                     #
+#                                                                               #
+#                                                                               #
+# This software is supplied "AS IS" without warranties of any kind.             #
+#                                                                               #
+#----------------------------------------------------------------------------   #
+# History:                                                                      #
+#     V1.0 Initial Version by Damilola Oludiran                                 #
+#     V1.1 Moved Kivy Layout String to ccugui.kv by Damilola Oludiran           #
+#     V1.2 Added Home Screen class by Damilola Oludiran                         #
+#     V1.3 Designed ToU presentation widget by Damilola Oludiran                #
+#     V1.4 Added Main menu, EV and Thermostat screen classes                    #
+#          by Damilola Oludiran                                                 #
+#     V1.5 Added temperature control widgets and buttons to thermostat screen   #
+#          by Damilola Oludiran                                                 #
+#     V1.6 Thermostat Button Functions by Damilola Oludiran                     #
+#     V1.7 Intergrated Temperature sensor to system by Damilola Oludiran        #
+#     V1.8 Added Demand response function to Thermostat by Damilola Oludiran    #
+#     V1.9 Added Widgets to EV screen by Damilola Oludiran                      #
+#     V2.0 Integrated the xbee module into application by Damilola Oludiran     #
+#     V2.1 Revised xbee module integration by Damilola Oludiran                 #
+#     V2.2 Changed Implementation to threaded class by Damilola Oludiran        #
+#     V2.3 Revised Ev screen to include a plot for consumption trendline        #
+#     V2.4 Implemented functionality to send switching signal                   #
+#     V2.5 Implemented functionality to recieve and present power consumption   #
+#          data                                                                 #
+#     V2.6 Added Sheduling screen and methods by Damilola Oludiran              #
+#     V2.7 Integrated Optimization function and methods by Damilola Oludiran    #
+#     V2.8 Revised Optimization methods by Damilola Oludiran                    #
+#     V2.9 revised xbee interfacing to synchronize with DEM by Damilola         #
+#     V3.0 Revised Thermostat method to implement DR by Damilola                #
+#     V3.1 Final Version by Damilola Oludiran                                   #
+#################################################################################
 ################################################################################
+
+#################################################################################
+# Imports                                                                       #
+#################################################################################
 from kivy.lang import Builder
 Builder.load_file("ccugui.kv")
 from kivy.config import Config
@@ -32,6 +73,9 @@ import xbee
 import tempsense
 import RPi.GPIO as GPIO
 
+#################################################################################
+# GPIO Set Up                                                                   #
+#################################################################################
 heater = 12 
 ac = 16
 
@@ -49,12 +93,24 @@ class CCUGUI(ScreenManager):
 
 ################################################################################
 
+#################################################################################
+# Home Screen Class                                                             #
+#################################################################################
 class HomeScreen(Screen):
     minutes = 0
     date = StringProperty(str(datetime.date.today().strftime("%d %B, %Y")))
     time = StringProperty(str(time.strftime('%H:%M', time.gmtime(minutes*60))))
     timeofusedata=[]
     
+    #################################################################################
+    # Name: __init__                                                                #
+    # Parameters: self                                                              #
+    # Description: This method Initializes the Home Screen                          #
+    #                                                                               #
+    #                                                                               #
+    # Preconditions: n/a                                                            #
+    # Postconditions: n/a                                                           #
+    #################################################################################
     def __init__(self, **kwargs):
         Screen.__init__(self, **kwargs)
         self.tou_data = tou.ToU()
@@ -67,6 +123,14 @@ class HomeScreen(Screen):
         Clock.schedule_interval(self.get_tou, 5)
         Clock.schedule_interval(self.data_graphs, 60)
     
+    #################################################################################
+    # Name: clock                                                                   #
+    # Parameters: self                                                              #
+    # Description: Simulates 24 hour in 24 minutes for demo purposes                #
+    #                                                                               #
+    # Preconditions: n/a                                                            #
+    # Postconditions: n/a                                                           #
+    #################################################################################
     def clock(self, *args):
         if (self.minutes == 1440):
             self.minutes = 0
@@ -79,7 +143,15 @@ class HomeScreen(Screen):
     
     def get_tou(self, dt):
         self.timeofusedata = self.tou_data.recieveTOU()
-        
+    
+    #################################################################################
+    # Name: datagraphs                                                              #
+    # Parameters: self                                                              #
+    # Description: This method returns the tou clock widget                         #
+    #                                                                               #
+    # Preconditions: tou data is retrieved                                          #
+    # Postconditions: n/a                                                           #
+    #################################################################################
     def data_graphs(self, *args):
         
         size = 0.3
@@ -124,12 +196,17 @@ class HomeScreen(Screen):
         
         
 ################################################################################
-
+#################################################################################
+# MenuScreen Class                                                              #
+#################################################################################
 class MenuScreen(Screen):
     pass
 
 ################################################################################
 
+#################################################################################
+# EVScreen Class                                                                #
+#################################################################################
 class EVScreen(Screen):
     charging = False
     isCharging = False
@@ -147,7 +224,14 @@ class EVScreen(Screen):
     totalEnergy = 0
     priceperMin = np.zeros(1440)
     
-    
+    #################################################################################
+    # Name: __init__                                                                #
+    # Parameters: self                                                              #
+    # Description: This method initialises EV Screen Class                          #
+    #                                                                               #
+    # Preconditions: n/a                                                            #
+    # Postconditions: n/a                                                           #
+    #################################################################################
     def __init__(self, **kwargs):
         Screen.__init__(self, **kwargs)
         self.price_power_fig, self.price_plot = plt.subplots()
@@ -163,6 +247,14 @@ class EVScreen(Screen):
         Clock.schedule_interval(self.calCost, 1)
         Clock.schedule_interval(self.pricepwrPlot, 15)
     
+    #################################################################################
+    # Name: evcharging                                                              #
+    # Parameters: self                                                              #
+    # Description: This method implements the EV charging control                   #
+    #                                                                               #
+    # Preconditions: n/a                                                            #
+    # Postconditions: n/a                                                           #
+    #################################################################################
     def evCharging(self, *args):
         minutes = self.manager.get_screen("Home").minutes
         is_scheduled = self.manager.get_screen("sched").is_scheduled
@@ -217,15 +309,27 @@ class EVScreen(Screen):
 
                     
     
-        
+    #################################################################################
+    # Name: pricepwrplot                                                            #
+    # Parameters: self                                                              #
+    # Description: This method plot price and power consumption data                #
+    #                                                                               #
+    # Preconditions: n/a                                                            #
+    # Postconditions: n/a                                                           #
+    # Reference for customizing plot:                                               #
+    # https://stackoverflow.com/questions/14908576                                  #
+    # /how-to-remove-frame-from-matplotlib-pyplot-figure-vs-matplotlib-figure-frame #
+    #################################################################################
     def pricepwrPlot(self, *args):
         if (len(self.dailyusage) == 96):
             self.dailyusage = []
-            self.price_power_canvas.canvas.clear()
+
+            self.consumption_plot.remove()
+            self.consumption_plot = self.price_power_fig.add_subplot(111, sharex=self.price_plot, frameon=False)
             self.totalCost = 0
             self.totalEnergy = 0
             
-        self.price_power_canvas.canvas.clear()    
+            
         self.dailyusage.append(self.power)
         self.price_plot.plot(self.price, color='orange', linewidth=2, label= 'Price')
         x_skip = 4;
@@ -234,13 +338,7 @@ class EVScreen(Screen):
         plt.xticks(np.arange(0, n+1, step=x_skip*(60/min_per_k)), np.arange(0, 25, step=x_skip))
         self.consumption_plot.plot(self.dailyusage, color = '#4c8a4c', linewidth=2, label='Power Consumption')
         self.consumption_plot.yaxis.tick_right()
-#        self.price_plot.legend(loc='best')
-#        self.consumption_plot.legend(loc='best')
-#        self.price_plot.set_ylabel('$/kWh')
-#        self.price_plot.set_xlabel('Hours')
-#        self.consumption_plot.set_xlabel('Hours')
-#        self.consumption_plot.set_ylabel('kW')
-#        self.consumption_plot.yaxis.tick_right()
+
         
         self.price_plot.spines['top'].set_visible(False)
         self.price_plot.spines['right'].set_visible(False)
@@ -253,7 +351,14 @@ class EVScreen(Screen):
         self.price_power_canvas.draw_idle()
         
         
-        
+    #################################################################################
+    # Name: totalMonthconsumptionPlot                                               #
+    # Parameters: self                                                              #
+    # Description: This method plots mothly power consumption data                  #
+    #                                                                               #
+    # Preconditions: n/a                                                            #
+    # Postconditions: n/a                                                           #
+    #################################################################################
     def totalMonthconsumptionPlot(self, *args):
         plt.figure()
         
@@ -278,10 +383,16 @@ class EVScreen(Screen):
             plt.gca().text(bari.get_x() + bari.get_width()/2, bari.get_height()- 0.2, str(int(height)),
                            ha='center', color='white', fontsize=5)
 
-    
+    #################################################################################
+    # Name: get_power                                                               #
+    # Parameters: self                                                              #
+    # Description: This method retrieve xbee queue data                             #
+    #                                                                               #
+    # Preconditions: n/a                                                            #
+    # Postconditions: n/a                                                           #
+    #################################################################################
     def get_power(self, dt=1):
         self.currvolt = self.xbee.recieve()
-#        if(self.currvolt == [0xffff, 0xfff1]):
            
         if (self.currvolt != 0):
             print(self.currvolt)
@@ -294,7 +405,15 @@ class EVScreen(Screen):
             self.power = round(self.power, 2)
             print(self.power)
             self.ids.powerdis.text = '\r\r\r Live Usage: \n' + '      ' + str(self.power) + 'kW'
-    
+
+    #################################################################################
+    # Name: calCost                                                                 #
+    # Parameters: self                                                              #
+    # Description: This method calculates total cost and total energy consumed      #
+    #                                                                               #
+    # Preconditions: n/a                                                            #
+    # Postconditions: n/a                                                           #
+    #################################################################################
     def calCost(self, *args):
         minutes = self.manager.get_screen("Home").minutes
         self.powerconsumption[minutes-1] = self.power
@@ -309,6 +428,9 @@ class EVScreen(Screen):
 
 ################################################################################
 
+#################################################################################
+# scheduling screen Class                                                       #
+#################################################################################
 class schedule(Screen):
     is_scheduled = False
     price = []
@@ -318,6 +440,15 @@ class schedule(Screen):
     t_start = ''
     t_complete= ''
     
+    #################################################################################
+    # Name: submitSchedule                                                          #
+    # Parameters: self                                                              #
+    # Description: This method retrieves user scheduling input and returns optimized#
+    #              expected loadprofile of EV                                       #
+    #                                                                               #
+    # Preconditions: n/a                                                            #
+    # Postconditions: Charging is scheduled                                         #
+    #################################################################################
     def submitSchedule(self, *args):
         tou = self.manager.get_screen("Home").timeofusedata
         if(tou != 0):
@@ -344,6 +475,15 @@ class schedule(Screen):
                 self.ids.notification.text  = "Enter a Valid Deadline"
     
 
+    #################################################################################
+    # Name: deleteSchedule                                                          #
+    # Parameters: self                                                              #
+    # Description: This method deletes user scheduling input                        #
+    #                                                                               #
+    #                                                                               #
+    # Preconditions: n/a                                                            #
+    # Postconditions: Charging is scheduled                                         #
+    #################################################################################
 
     def deleteSchedule(self, *args):
         self.load_profile = []
@@ -352,6 +492,14 @@ class schedule(Screen):
         self.t_complete = self.ids.deadline.text = ''
         self.ids.notification.text  = "No Schedule"
     
+    #################################################################################
+    # Name: keypad input                                                            #
+    # Parameters: self                                                              #
+    # Description: This method retrieves user scheduling input                      #
+    #                                                                               #
+    # Preconditions: n/a                                                            #
+    # Postconditions: Charging is scheduled                                         #
+    #################################################################################
     def keypadInput(self, button):
         if button.text.isdigit():
             if (((self.active_text) == 'starttime') or ((self.active_text) == 'deadline')):
@@ -382,6 +530,9 @@ class schedule(Screen):
 
 ################################################################################
 
+#################################################################################
+# Thermostat Screen Class                                                       #
+#################################################################################
 class ThermostatScreen(Screen):
     currenttemp = 0;
     setpoint = 0
@@ -391,7 +542,7 @@ class ThermostatScreen(Screen):
     def __init__(self, **kwargs):
         Screen.__init__(self, **kwargs)
         #self.sensor = tempsense.Sensor()
-        #Clock.schedule_interval(self.control_temp, 2)
+        #Clock.schedule_interval(self.control_temp, 1)
         
     def cool_mode(self, *args):
         colour = [0,0.6588,1,1]
@@ -416,33 +567,57 @@ class ThermostatScreen(Screen):
                 if(int(self.ids.settemp.text) != 15):
                     self.ids.settemp.text = str(int(self.ids.settemp.text)-1)
     
-    #def demand_res(self, *args):
-        
+    def setDemand(self, *args):
+        if (self.demand_response == False):
+            self.deadbeatval = 2
+            self.demand_response = True
+            self.ids.dresponse.background_color=[ 0, 2, 0, 1]
+        else:
+            self.deadbeatval = 1
+            self.demand_response = False
+            self.ids.dresponse.background_color= self.ids.thermostat.btn_colour 
     
-#    def control_temp(self, *args):
-#        self.setpoint = int(self.ids.settemp.text)
-#        self.currenttemp =self.sensor.recieveTemp()
-#        
-#        self.ids.current.text = str(self.currenttemp)
-#        
-#        if(self.ids.mode.text == 'Heating'):
-#            if((self.setpoint-self.currenttemp) >= self.deadbeatval):
-#                #turn on heater
-#                GPIO.output(heater, GPIO.HIGH)
-#            elif((self.currenttemp-self.setpoint) >= self.deadbeatval):
-#                #turnoff heater
-#                GPIO.output(heater, GPIO.LOW)
-#        if(self.ids.mode.text == 'Cooling'):
-#            if((self.currenttemp-self.setpoint) >= self.deadbeatval):
-#                #turn on ac
-#                GPIO.output(ac, GPIO.HIGH)
-#            elif((self.setpoint-self.currenttemp) >= self.deadbeatval):
-#                #turnoff ac
-#                GPIO.output(ac, GPIO.HIGH)
+        
+    #################################################################################
+    # Name: control_temp                                                            #
+    # Parameters: self                                                              #
+    # Description: This method controls the thermostat circuit                      #
+    #                                                                               #
+    # Preconditions: n/a                                                            #
+    # Postconditions: Charging is scheduled                                         #
+    #################################################################################
+    def control_temp(self, *args):
+        self.setpoint = int(self.ids.settemp.text)
+        self.currenttemp =self.sensor.recieveTemp()
+        if (self.currenttemp !=0):
+            self.currenttemp = round(self.currenttemp, 1)
+            self.ids.current.text = str(self.currenttemp)
+
+        if(self.ids.mode.text == 'Heating'):
+            if((self.setpoint-self.currenttemp) >= 1):
+                #turn on heater
+                GPIO.output(heater, GPIO.HIGH)
+                GPIO.output(ac, GPIO.LOW)
+            elif((self.currenttemp-self.setpoint) >= 1):
+                #turnoff heater
+                GPIO.output(heater, GPIO.LOW)
+                GPIO.output(ac, GPIO.LOW)
+        if(self.ids.mode.text == 'Cooling'):
+            if((self.currenttemp-(self.setpoint+self.deadbandval)) >= 1):
+                #turn on ac
+                GPIO.output(ac, GPIO.HIGH)
+                GPIO.output(heater, GPIO.LOW)
+            elif(((self.setpoint+self.deadbandval)-self.currenttemp) >= 1):
+                #turnoff ac
+                GPIO.output(ac, GPIO.LOW)
+                GPIO.output(heater, GPIO.LOW)
             
             
 ################################################################################
 
+#################################################################################
+# Main Kivy App Class                                                           #
+#################################################################################
 class CCUgraphicUI(App):
     def build(self):
         parent = CCUGUI()
